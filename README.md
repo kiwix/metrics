@@ -1,4 +1,4 @@
-# metrics
+# Metrics for Kiwix
 Kiwix &amp; openZIM software developement processes monitoring
 
 We use Grimoirelab to visualise several metrics on Kiwix devéloppement evolution. Datas are collect from our GitHub repositories of Kiwix and Openzim account (also called "project" in Grimoirelab).
