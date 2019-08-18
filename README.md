@@ -12,7 +12,7 @@ Here we propose a docker based on a [docker image](https://github.com/chaoss/gri
 
 ```
 docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:5601:5601 -e GITHUB_TOKEN=<your token> -v $(pwd)/logs:/logs -v $(pwd)/es-data:/var/lib/elasticsearch -t kiwix/metrics
-``
+```
 
 ## Dashboard screenshots
 
