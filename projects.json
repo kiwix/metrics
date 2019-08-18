@@ -14,7 +14,8 @@
 	    "https://github.com/kiwix/cardshop",
 	    "https://github.com/kiwix/apple",
 	    "https://github.com/kiwix/web",
-	    "https://github.com/kiwix/tools"
+	    "https://github.com/kiwix/tools",
+	    "https://github.com/kiwix/metrics"
         ],
         "github": [
             "https://github.com/kiwix/kiwix-android",
@@ -30,7 +31,8 @@
 	    "https://github.com/kiwix/cardshop",
 	    "https://github.com/kiwix/apple",
 	    "https://github.com/kiwix/web",
-	    "https://github.com/kiwix/tools"
+	    "https://github.com/kiwix/tools",
+	    "https://github.com/kiwix/metrics"
         ],
       "cocom": [
             "https://github.com/kiwix/kiwix-android",
@@ -46,7 +48,8 @@
 	    "https://github.com/kiwix/cardshop",
 	    "https://github.com/kiwix/apple",
 	    "https://github.com/kiwix/web",
-	    "https://github.com/kiwix/tools"
+	    "https://github.com/kiwix/tools",
+	    "https://github.com/kiwix/metrics"
       ]
     },
     "openzim": {
