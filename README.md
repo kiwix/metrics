@@ -12,8 +12,8 @@ Run
 
 - `docker run -e GITHUB_TOKEN=<your token> -v $(pwd)/logs:/logs -v $(pwd)/es-data:/var/lib/elasticsearch`
 
-Graal Integration
-=================
+Graal Integration (in progress)
+===============================
 
 Graal is a Generic Repository AnALyzer for Grimoirelab. He uses among other things `coloc` or `lizard` tools.
 
