@@ -7,13 +7,12 @@ Grimoirelab use Elasticsearch and Kibana to store datas and visualise thesesi on
 
 Here we propose a docker based on the Dockerfile-full proposed by Grimoirelab to visualise several Kiwix developpement metrics.
 
-Run
-===
+## Run
+
 
 - `docker run -e GITHUB_TOKEN=<your token> -v $(pwd)/logs:/logs -v $(pwd)/es-data:/var/lib/elasticsearch`
 
-Graal Integration (in progress)
-===============================
+## Graal Integration (in progress)
 
 Graal is a Generic Repository AnALyzer for Grimoirelab. He uses among other things `coloc` or `lizard` tools.
 
