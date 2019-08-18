@@ -7,12 +7,6 @@ Grimoirelab use Elasticsearch and Kibana to store datas and visualise thesesi on
 
 Here we propose a docker based on the Dockerfile-full proposed by Grimoirelab to visualise several Kiwix developpement metrics.
 
-Run the container
-=================
-
-- Put your Github token in `github-token.txt` file
-- Run `docker-compose up -d`
-
 Graal Integration
 =================
 
