@@ -38,6 +38,8 @@ ENV OPENZIM_REPOS='"https://github.com/openzim/libzim", \
 	   "https://github.com/openzim/ted", \
 	   "https://github.com/openzim/kalite"'
 	   
+USER root
+	   
 # set the projets and his repositories
 RUN { \
   echo '{' ; \
@@ -62,7 +64,7 @@ RUN { \
 } > /myprojects.json
 
 # set project Kiwix name
-RUN sed "s/CHAOSS/Kiwix/g /project.cfg > /project.cfg
+RUN sed "s/CHAOSS/Kiwix/g" /project.cfg > /project.cfg
 
 # set Github token
 RUN { \
