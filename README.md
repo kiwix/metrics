@@ -1,11 +1,11 @@
 # Metrics for Kiwix
 Kiwix &amp; openZIM software developement processes monitoring
 
-We use [Grimoirelab](https://chaoss.github.io/grimoirelab/) to visualise several metrics on Kiwix devéloppement evolution. Datas are collect from our GitHub repositories of Kiwix and openZIM accounts (also called "project" in Grimoirelab).
+We use [Grimoirelab](https://chaoss.github.io/grimoirelab/) to visualise several metrics on Kiwix developement evolution. Data are collected from our Kiwix and openZIM repositories, also called "projects" in Grimoirelab.
 
-Grimoirelab use [Elasticsearch and Kibana](https://www.elastic.co) to store datas and visualise theses on web dashboards. To populate effectively the databases from several sources (Git, Github, Gitlab, Mediawiki, RSS, Jenkins, Slack ...), Grimoirelab has developped modules to create a [toolchain](https://chaoss.github.io/grimoirelab-tutorial/basics/components.html) allows to update collect datas optimally. In addition of Elasticsearch database, a SQL database (MariaDB) is used to stored identities collected from GitHub. All of things is orchestrate with [Grimoire-Sirmordered](https://github.com/chaoss/grimoirelab-sirmordred) daemon. We can use also micro-mordered as command line interface to update datas manually.
+Grimoirelab uses [Elasticsearch and Kibana](https://www.elastic.co) to store data and visualise these on web dashboards. To populate effectively this database from several sources (Git, Github, Gitlab, Mediawiki, RSS, Jenkins, Slack ...), Grimoirelab has developed modules to create a [toolchain](https://chaoss.github.io/grimoirelab-tutorial/basics/components.html) to optimally update data collection. In addition to Elasticsearch, we use an SQL database (MariaDB) to store identities collected from GitHub. All of this is orchestrated with the [Grimoire-Sirmordered](https://github.com/chaoss/grimoirelab-sirmordred) daemon. We can also use micro-mordered as command line interface to manually update data.
 
-Here we propose a docker based on a [docker image](https://github.com/chaoss/grimoirelab/tree/master/docker) proposed by Grimoirelab including Elasticksearch, MariaDB and Kibana (Dockerfile-full).
+We propose a docker instance based on a [docker image](https://github.com/chaoss/grimoirelab/tree/master/docker) provided by Grimoirelab and including Elasticksearch, MariaDB and Kibana (Dockerfile-full).
 
 ## Run
 
