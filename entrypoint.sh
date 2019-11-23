@@ -22,6 +22,8 @@ sudo /etc/init.d/mysql start
 echo "Starting Kibiter"
 ${KB}-linux-x86_64/bin/kibana > kibana.log 2>&1 &
 
+kidash --import /dashboard_overview.json --dashboard Overview 
+
 # Start SirMordred
 echo "Starting SirMordred"
 /usr/local/bin/sirmordred $*

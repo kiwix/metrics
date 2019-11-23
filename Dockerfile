@@ -6,6 +6,8 @@ ENV GITHUB_TOKEN=xxx
 USER root
 
 COPY projects.json /projects.json
+COPY menu.yaml /menu.yaml
+COPY dashboard_overview.json /dashboard_overview.json
 
 COPY entrypoint.sh /entrypoint.sh
 RUN sudo chmod 755 /entrypoint.sh
