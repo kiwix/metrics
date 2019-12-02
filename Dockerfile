@@ -5,6 +5,8 @@ ENV GITHUB_TOKEN=xxx
 	   
 USER root
 
+RUN apt-get update && apt-get -y install --no-install-recommends cloc
+
 COPY projects.json /projects.json
 COPY menu.yaml /menu.yaml
 COPY dashboard_overview.json /dashboard_overview.json
