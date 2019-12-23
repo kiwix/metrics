@@ -67,7 +67,7 @@ COPY bin/build_grimoirelab ${DIST_SCRIPT}
 RUN chmod 755 ${DIST_SCRIPT}
 
 # Add packages (should be in dist, when building)
-#COPY dist/* ${DIST_DIR}/
+COPY dist/* ${DIST_DIR}/
 
 # Unbuffered output for Python, so that we see messages as they are produced
 ENV PYTHONUNBUFFERED 0
