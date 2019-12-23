@@ -14,6 +14,30 @@ We propose a docker instance based on a [docker image](https://github.com/chaoss
 docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:5601:5601 -e GITHUB_TOKEN=<your token> -v $(pwd)/logs:/logs -v $(pwd)/es-data:/var/lib/elasticsearch -t kiwix/metrics
 ```
 
+## config 
+
+- infra.cfg
+- dashboard.cfg
+- project.cfg
+- override.cfg
+- orgs.json
+- projects.json
+- identities.yaml
+- menu.yaml
+- aliases.json
+- dashboard_overview.json
+
+
+## bin
+
+- entrypoint.sh
+- build_grimoirelab
+
+
+## dist
+
+empty dir
+
 ## Dashboard screenshots
 
 ![Backlog dashboard](screenshot-dashboard-backlog.png)
