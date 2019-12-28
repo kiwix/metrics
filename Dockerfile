@@ -15,13 +15,11 @@ ENV DIST_SCRIPT=/usr/local/bin/build_grimoirelab \
     LOGS_DIR=/logs \
     DIST_DIR=/dist
 ENV ES=elasticsearch-6.1.4
-ENV KB_VERSION=6.1.4-4
+ENV KB_VERSION=6.1.4-1
 ENV KB_TAG=community-v${KB_VERSION}
 ENV KB=kibiter-${KB_VERSION}
 ENV KB_DIR=${KB}-linux-x86_64
 ENV GITHUB_TOKEN=xxx
-
-USER ${DEPLOY_USER}
 
 # install dependencies
 RUN mkdir /usr/share/man/man1 && \
@@ -60,7 +58,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     echo 'LANG="en_US.UTF-8"'>/etc/default/locale && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=en_US.UTF-8
-    
+
 # Add script to create distributable packages
 # Add script to create distributable packages
 COPY bin/build_grimoirelab ${DIST_SCRIPT}
@@ -74,8 +72,6 @@ ENV PYTHONUNBUFFERED 0
 
 # Install GrimoireLab from packages in DIST_DIR
 RUN ${DIST_SCRIPT} --install --install_system --distdir ${DIST_DIR}
-
-USER root
 
 # Install ElasticSearch
 RUN wget -nv https://artifacts.elastic.co/downloads/elasticsearch/${ES}.deb && \
@@ -100,6 +96,8 @@ RUN echo "mysqld_safe &" > /tmp/config && \
     
 EXPOSE 3306
 
+USER ${DEPLOY_USER}
+WORKDIR ${DEPLOY_USER_DIR}
 
 # Install Kibana (as DEPLOY_USER)
 RUN wget -nv https://github.com/grimoirelab/kibiter/releases/download/${KB_TAG}/${KB_DIR}.tar.gz && \
