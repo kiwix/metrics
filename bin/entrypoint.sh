@@ -6,40 +6,54 @@ sed -i "s/CHAOSS/Kiwix/g" /project.cfg
 # set Github token and enable cocom
 { \
   echo "[github]" ; \
-  echo "api-token = $GITHUB_TOKEN" ; \
-  echo ""  ; \
-  echo "[panels]" ; \
-  echo "code-complexity = true" ; \
-  echo ""  ; \
-  echo "[cocom]" ; \
-  echo "raw_index = cocom_chaoss" ; \
-  echo "enriched_index = cocom_chaoss_enrich" ; \
-  echo "category = code_complexity_lizard_file" ; \
-  echo "studies = [enrich_cocom_analysis]" ; \
-  echo "branches = master" ; \
-  echo ""  ; \
-  echo "[enrich_cocom_analysis]" ; \
-  echo "out_index = cocom_chaoss_study" ; \
-  echo "interval_months = [3]" ; \
+  echo "api-token = $GITHUB_TOKEN" ; 
 } > /override.cfg
 
 # Start Elasticsearch
 echo "Starting Elasticsearch"
-sudo chown -R elasticsearch.elasticsearch /var/lib/elasticsearch
-sudo /etc/init.d/elasticsearch start
+chown -R elasticsearch.elasticsearch /var/lib/elasticsearch
+/etc/init.d/elasticsearch start
 
 # Start MariaDB
 echo "Starting MariaDB"
-sudo /etc/init.d/mysql start
+/etc/init.d/mysql start
 
 # Start Kibana
 echo "Starting Kibiter"
 ${KB}-linux-x86_64/bin/kibana > kibana.log 2>&1 &
 
+echo -n "Waiting for Kibiter to start..."
+until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:5601); do
+    printf '.'
+    sleep 2
+done
+echo ""
+echo "Import dashboard"
 kidash --import /dashboard_overview.json --dashboard Overview 
 
-# Start SirMordred
-echo "Starting SirMordred"
-/usr/local/bin/sirmordred $*
-
-#sleep 10000d
+if [[ $RUN_MORDRED ]] && [[ $RUN_MORDRED = "NO" ]]; then
+  echo
+  echo "All services up, not running SirMordred because RUN_MORDRED = NO"
+  echo "Get a shell running docker exec, for example:"
+  echo "docker exec -it" $(hostname) "env TERM=xterm /bin/bash"
+else
+  sleep 1
+  # Start SirMordred
+  echo "Starting SirMordred to build a GrimoireLab dashboard"
+  echo "This will usually take a while..."
+  /usr/local/bin/sirmordred $*
+  status=$?
+  if [ $status -ne 0 ]; then
+    echo "Failed to start SirMordred: $status"
+    exit $status
+  fi
+  echo
+  echo "SirMordred done, dashboard produced, check http://localhost:5601"
+  echo
+  echo "To make this shell finish, type <CTRL> C"
+  echo "but the container will still run services in the background,"
+  echo "including Kibiter and Elasticsearch, so you can still operate the dashboard."
+fi
+echo
+echo "To make the whole container finish, type 'docker kill " $(hostname) "'"
+sleep 5000d

@@ -14,6 +14,7 @@ ENV DEPLOY_USER_DIR=/home/${DEPLOY_USER}
 ENV DIST_SCRIPT=/usr/local/bin/build_grimoirelab \
     LOGS_DIR=/logs \
     DIST_DIR=/dist
+ENV REL_FILE=/releases.cfg
 ENV ES=elasticsearch-6.1.4
 ENV KB_VERSION=6.1.4-1
 ENV KB_TAG=community-v${KB_VERSION}
@@ -60,7 +61,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     update-locale LANG=en_US.UTF-8
 
 # Add script to create distributable packages
-# Add script to create distributable packages
+COPY config/releases.cfg ${REL_FILE}
 COPY bin/build_grimoirelab ${DIST_SCRIPT}
 RUN chmod 755 ${DIST_SCRIPT}
 
@@ -71,8 +72,7 @@ COPY dist/* ${DIST_DIR}/
 ENV PYTHONUNBUFFERED 0
 
 # Install GrimoireLab from packages in DIST_DIR
-RUN ${DIST_SCRIPT} --install --install_system --distdir ${DIST_DIR}
-
+RUN ${DIST_SCRIPT} --build --install --install_system --distdir ${DIST_DIR} --relfile ${REL_FILE} 
 # Install ElasticSearch
 RUN wget -nv https://artifacts.elastic.co/downloads/elasticsearch/${ES}.deb && \
     wget -nv https://artifacts.elastic.co/downloads/elasticsearch/${ES}.deb.sha512 && \
@@ -120,6 +120,8 @@ RUN sudo /etc/init.d/elasticsearch start && \
     done )
 
 EXPOSE 5601
+
+USER root
 
 # Add default mordred configuration files
 COPY config/mordred-infra.cfg /infra.cfg
