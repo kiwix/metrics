@@ -21,6 +21,7 @@ ENV KB_TAG=community-v${KB_VERSION}
 ENV KB=kibiter-${KB_VERSION}
 ENV KB_DIR=${KB}-linux-x86_64
 ENV GITHUB_TOKEN=xxx
+ENV GET=wget -q
 
 # install dependencies
 RUN mkdir /usr/share/man/man1 && \
@@ -74,8 +75,8 @@ ENV PYTHONUNBUFFERED 0
 # Install GrimoireLab from packages in DIST_DIR
 RUN ${DIST_SCRIPT} --build --install --install_system --distdir ${DIST_DIR} --relfile ${REL_FILE} 
 # Install ElasticSearch
-RUN wget -nv https://artifacts.elastic.co/downloads/elasticsearch/${ES}.deb && \
-    wget -nv https://artifacts.elastic.co/downloads/elasticsearch/${ES}.deb.sha512 && \
+RUN ${GET} https://artifacts.elastic.co/downloads/elasticsearch/${ES}.deb && \
+    ${GET} https://artifacts.elastic.co/downloads/elasticsearch/${ES}.deb.sha512 && \
     sudo dpkg -i ${ES}.deb && \
     rm ${ES}.deb ${ES}.deb.sha512
 RUN sed -e "/MAX_MAP_COUNT=/s/^/#/g" -i /etc/init.d/elasticsearch && \
@@ -100,7 +101,7 @@ USER ${DEPLOY_USER}
 WORKDIR ${DEPLOY_USER_DIR}
 
 # Install Kibana (as DEPLOY_USER)
-RUN wget -nv https://github.com/grimoirelab/kibiter/releases/download/${KB_TAG}/${KB_DIR}.tar.gz && \
+RUN ${GET} https://github.com/grimoirelab/kibiter/releases/download/${KB_TAG}/${KB_DIR}.tar.gz && \
     tar xzf ${KB_DIR}.tar.gz && \
     rm ${KB_DIR}.tar.gz && \
     sed -e "s|^#server.host: .*$|server.host: 0.0.0.0|" -i ${KB_DIR}/config/kibana.yml
