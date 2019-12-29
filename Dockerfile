@@ -21,7 +21,7 @@ ENV KB_TAG=community-v${KB_VERSION}
 ENV KB=kibiter-${KB_VERSION}
 ENV KB_DIR=${KB}-linux-x86_64
 ENV GITHUB_TOKEN=xxx
-ENV GET=wget -q
+ENV GET="wget -q"
 
 # install dependencies
 RUN mkdir /usr/share/man/man1 && \
