@@ -22,7 +22,9 @@ To configure the analisys by sirmordered, four files are used :
 - project.cfg
 - override.cfg
 
-The configuration result is a concatenation of this files
+The configuration result is a concatenation of this files.
+
+See https://github.com/chaoss/grimoirelab-sirmordred/blob/master/README.md for the syntax.
 
 ### projects.json
 
