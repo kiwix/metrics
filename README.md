@@ -9,37 +9,43 @@ We propose a docker instance based on a [docker image](https://github.com/chaoss
 
 ## Run
 
-
 ```
 docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:5601:5601 -e GITHUB_TOKEN=<your token> -v $(pwd)/logs:/logs -v $(pwd)/es-data:/var/lib/elasticsearch -t kiwix/metrics
 ```
 
-## config 
+## Configuration
+
+To configure the analisys by sirmordered, four files are used :
 
 - infra.cfg
 - dashboard.cfg
 - project.cfg
 - override.cfg
-- orgs.json
-- projects.json
-- identities.yaml
-- menu.yaml
-- aliases.json
-- dashboard_overview.json
 
+The configuration result is a concatenation of this files
 
-## bin
+### projects.json
 
-- entrypoint.sh
-- build_grimoirelab
+The list of repositories to analyze. The first level is the project. The second is the enriched module (git, github, cocom ...), et then the last is the list of repositories to analyze for this module. We must add repositories for each module.
 
+### orgs.json
 
-## dist
+Lists of known organizations. 
 
-empty dir
+### identities.yaml
 
-## Dashboard screenshots
+Add informations for authors, like email or link to github account
 
-![Backlog dashboard](screenshot-dashboard-backlog.png)
-![CoCom dashboard 1/2](screenshot-dashboard-cocom1.png)
-![CoCom dashboard 2/2](screenshot-dashboard-cocom2.png)
+### aliases.json
+
+aliases for enrich modules
+
+###  menu.yaml
+Configure the menu for Kibiter
+
+### dashboard_overview.json
+
+The dashboard show in first. This file is generate with Kidash :
+
+`kidash --export dashboard_overview.json --dashboard Overview`
+
