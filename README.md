@@ -51,3 +51,7 @@ The dashboard show in first. This file is generate with Kidash :
 
 `kidash --export dashboard_overview.json --dashboard Overview`
 
+## Performances
+
+- Initialization time : ~ 9 hours
+- Elastic Search database size : ~ 8 Go
