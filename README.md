@@ -53,5 +53,6 @@ The dashboard show in first. This file is generate with Kidash :
 
 ## Performances
 
-- Initialization time : ~ 9 hours
+- Initialization time : ~ 9 hours (cocom)
+- Incremental update time : ~ 2 minutes (cocom)
 - Elastic Search database size : ~ 8 Go
