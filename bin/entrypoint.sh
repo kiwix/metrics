@@ -25,6 +25,7 @@ ${KB_DIR}/bin/kibana > kibana.log 2>&1 &
 if [ "$PROJECT_NAME" != "" ]; then
   sed -e "s/title: 'Kibana',$/title: '$PROJECT_NAME',/" -i ${KB_DIR}/src/core_plugins/kibana/index.js
   sed -e "s|__PROJECT__|$PROJECT_NAME|g" -i ${KB_DIR}/src/ui/views/chrome.jade
+  sed -e "s/title GrimoireLab Analytics/title $PROJECT_NAME/" -i ${KB_DIR}/src/ui/views/chrome.jade
 fi
 
 echo -n "Waiting for Kibiter to start..."
