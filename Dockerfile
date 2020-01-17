@@ -104,7 +104,12 @@ WORKDIR ${DEPLOY_USER_DIR}
 RUN ${GET} https://github.com/grimoirelab/kibiter/releases/download/${KB_TAG}/${KB_DIR}.tar.gz && \
     tar xzf ${KB_DIR}.tar.gz && \
     rm ${KB_DIR}.tar.gz && \
-    sed -e "s|^#server.host: .*$|server.host: 0.0.0.0|" -i ${KB_DIR}/config/kibana.yml
+    sed -e "s|^#server.host: .*$|server.host: 0.0.0.0|" -i ${KB_DIR}/config/kibana.yml && \
+    rm -rf ${KB_DIR}/src/ui/public/images ${KB_DIR}/src/ui/public/assets/favicons
+
+COPY images ${KB_DIR}/src/ui/public/images
+COPY favicons ${KB_DIR}/src/ui/public/assets/favicons
+
 # Run Kibana until optimization is done, to avoid optimizing every
 # time the image is run
 RUN ${KB_DIR}/bin/kibana 2>&1 | grep -m 1 "Optimization of .* complete in .* seconds"

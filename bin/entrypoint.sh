@@ -20,7 +20,12 @@ echo "Starting MariaDB"
 
 # Start Kibana
 echo "Starting Kibiter"
-${KB}-linux-x86_64/bin/kibana > kibana.log 2>&1 &
+${KB_DIR}/bin/kibana > kibana.log 2>&1 &
+
+if [ "$PROJECT_NAME" != "" ]; then
+  sed -e "s/title: 'Kibana',$/title: '$PROJECT_NAME',/" -i ${KB_DIR}/src/core_plugins/kibana/index.js
+  sed -e "s|__PROJECT__|$PROJECT_NAME|g" -i ${KB_DIR}/src/ui/views/chrome.jade
+fi
 
 echo -n "Waiting for Kibiter to start..."
 until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:5601); do
