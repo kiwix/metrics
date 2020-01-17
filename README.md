@@ -10,7 +10,7 @@ We propose a docker instance based on a [docker image](https://github.com/chaoss
 ## Run
 
 ```
-docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:5601:5601 -e GITHUB_TOKEN=<your token> -v $(pwd)/logs:/logs -v $(pwd)/es-data:/var/lib/elasticsearch -t kiwix/metrics
+docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:5601:5601 -e GITHUB_TOKEN=<your token> -e PROJECT_NAME='Kiwix development metrics' -v $(pwd)/logs:/logs -v $(pwd)/es-data:/var/lib/elasticsearch -t kiwix/metrics
 ```
 
 ## Configuration
