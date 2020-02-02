@@ -37,6 +37,11 @@ echo ""
 echo "Import dashboard"
 kidash --import /dashboard_overview.json --dashboard Overview 
 
+echo ""
+echo "Settings Kibana"
+curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/histogram:barTarget -d '{"value": "20"}'
+curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/defaultIndex -d '{"value":"26d36150-0f7c-11ea-ae8c-d9e77f11fa16"}'
+
 if [[ $RUN_MORDRED ]] && [[ $RUN_MORDRED = "NO" ]]; then
   echo
   echo "All services up, not running SirMordred because RUN_MORDRED = NO"
