@@ -75,7 +75,7 @@ all_repos = {
             'version_file': os.path.join('arthur', '_version.py'),
             'check_run': 'arthurd --help'}],
     'grimoireelk': [{'name': 'grimoire-elk', 'dir': '',
-            'repo_url': 'http://github.com/florentk/grimoirelab-elk',
+            'repo_url': 'http://github.com/chaoss/grimoirelab-elk',
             'version_file': os.path.join('grimoire_elk', '_version.py'),
             'check_run': 'p2o.py --help'}],
     'sortinghat': [{'name': 'sortinghat', 'dir': '',
