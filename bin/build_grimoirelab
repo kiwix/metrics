@@ -394,7 +394,7 @@ class Venv (CommandRunner):
             return True
         common_args = ['pip3', 'install', '--upgrade']
         if dist_dir:
-            common_args += ['--pre', '--find-links=' + dist_dir.name]
+            common_args += ['--find-links=' + dist_dir.name]
         if atonce:
             (success, output) = self.run_command(common_args + module_names)
         else:
