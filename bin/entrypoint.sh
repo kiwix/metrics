@@ -22,8 +22,8 @@ echo "Starting MariaDB"
 echo "Starting Kibiter"
 ${KB_DIR}/bin/kibana > kibana.log 2>&1 &
 
-# Put Index kibana setting in read only
-curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : true }'
+# Allow kibana setting writting for initialization
+curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : false }'
 
 # Disable dev tool
 sed -e s/\'devTools\'\,//g  -i ${KB_DIR}/src/core_plugins/kibana/index.js
@@ -47,6 +47,9 @@ echo ""
 echo "Settings Kibana"
 curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/histogram:barTarget -d '{"value": "20"}'
 curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/defaultIndex -d '{"value":"26d36150-0f7c-11ea-ae8c-d9e77f11fa16"}'
+
+# Put Index kibana setting in read only
+curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : true }'
 
 if [[ $RUN_MORDRED ]] && [[ $RUN_MORDRED = "NO" ]]; then
   echo
