@@ -22,9 +22,6 @@ echo "Starting MariaDB"
 echo "Starting Kibiter"
 ${KB_DIR}/bin/kibana > kibana.log 2>&1 &
 
-# Allow kibana setting writting for initialization
-curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : false }'
-
 # Disable dev tool
 sed -e s/\'devTools\'\,//g  -i ${KB_DIR}/src/core_plugins/kibana/index.js
 
@@ -39,6 +36,10 @@ until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:5601); d
     printf '.'
     sleep 2
 done
+
+# Allow kibana setting writting for initialization
+curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : false }'
+
 echo ""
 echo "Import dashboard"
 kidash --import /dashboard_overview.json --dashboard Overview 
