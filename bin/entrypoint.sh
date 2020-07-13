@@ -14,18 +14,12 @@ echo "Starting Elasticsearch"
 chown -R elasticsearch.elasticsearch /var/lib/elasticsearch
 /etc/init.d/elasticsearch start
 
-echo ""
-echo "Settings Kibana"
-curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/histogram:barTarget -d '{"value": "20"}'
-curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/defaultIndex -d '{"value":"26d36150-0f7c-11ea-ae8c-d9e77f11fa16"}'
-
 # Start MariaDB
 echo "Starting MariaDB"
 /etc/init.d/mysql start
 
-# Start Kibana
-echo "Starting Kibiter"
-${KB_DIR}/bin/kibana > kibana.log 2>&1 &
+# Allow kibana setting writting for initialization
+curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : false }'
 
 # Disable dev tool
 sed -e s/\'devTools\'\,//g  -i ${KB_DIR}/src/core_plugins/kibana/index.js
@@ -36,14 +30,20 @@ if [ "$PROJECT_NAME" != "" ]; then
   sed -e "s/title GrimoireLab Analytics/title $PROJECT_NAME/" -i ${KB_DIR}/src/ui/views/chrome.jade
 fi
 
+# Start Kibana
+echo "Starting Kibiter"
+${KB_DIR}/bin/kibana > kibana.log 2>&1 &
+
 echo -n "Waiting for Kibiter to start..."
 until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:5601); do
     printf '.'
     sleep 2
 done
 
-# Allow kibana setting writting for initialization
-curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : false }'
+echo ""
+echo "Settings Kibana"
+curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/histogram:barTarget -d '{"value": "20"}'
+curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/defaultIndex -d '{"value":"26d36150-0f7c-11ea-ae8c-d9e77f11fa16"}'
 
 echo ""
 echo "Import dashboard"
