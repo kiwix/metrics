@@ -18,6 +18,12 @@ chown -R elasticsearch.elasticsearch /var/lib/elasticsearch
 echo "Starting MariaDB"
 /etc/init.d/mysql start
 
+echo -n "Waiting for Elasticsearch  to start..."
+until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:9200); do
+    printf '.'
+    sleep 2
+done
+
 # Allow kibana setting writting for initialization
 curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : false }'
 
