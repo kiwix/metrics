@@ -14,6 +14,11 @@ echo "Starting Elasticsearch"
 chown -R elasticsearch.elasticsearch /var/lib/elasticsearch
 /etc/init.d/elasticsearch start
 
+echo ""
+echo "Settings Kibana"
+curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/histogram:barTarget -d '{"value": "20"}'
+curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/defaultIndex -d '{"value":"26d36150-0f7c-11ea-ae8c-d9e77f11fa16"}'
+
 # Start MariaDB
 echo "Starting MariaDB"
 /etc/init.d/mysql start
@@ -44,11 +49,6 @@ echo ""
 echo "Import dashboard"
 kidash --import /dashboard_overview.json --dashboard Overview 
 
-echo ""
-echo "Settings Kibana"
-curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/histogram:barTarget -d '{"value": "20"}'
-curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/defaultIndex -d '{"value":"26d36150-0f7c-11ea-ae8c-d9e77f11fa16"}'
-
 # Put Index kibana setting in read only
 curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : true }'
 
@@ -62,7 +62,7 @@ else
   # Start SirMordred
   echo "Starting SirMordred to build a GrimoireLab dashboard"
   echo "This will usually take a while..."
-  /usr/local/bin/sirmordred $*
+  /usr/local/bin/sirmordred $* 2>&1 | tee -a sirmordred.log
   status=$?
   if [ $status -ne 0 ]; then
     echo "Failed to start SirMordred: $status"
