@@ -41,6 +41,7 @@ RUN mkdir /usr/share/man/man1 && \
         openjdk-8-jdk-headless \
         net-tools \
         mariadb-server cloc \
+        logrotate cron \
         && \
     apt-get clean && \
     find /var/lib/apt/lists -type f -delete
@@ -114,6 +115,10 @@ COPY favicons ${KB_DIR}/src/ui/public/assets/favicons
 # time the image is run
 RUN ${KB_DIR}/bin/kibana 2>&1 | grep -m 1 "Optimization of .* complete in .* seconds"
 
+EXPOSE 5601
+
+USER root
+
 RUN sudo /etc/init.d/elasticsearch start && \
     ${KB_DIR}/bin/kibana 2>&1 > /dev/null & \
     ( until $(curl --output /dev/null --silent --fail http://127.0.0.1:9200/.kibana/config/_search ); do \
@@ -124,10 +129,6 @@ RUN sudo /etc/init.d/elasticsearch start && \
           -H 'Accept: application/json' -d '{"value": "*"}' \
           --silent --output /dev/null ; \
     done )
-
-EXPOSE 5601
-
-USER root
 
 # Add default mordred configuration files
 COPY config/mordred-infra.cfg /infra.cfg
@@ -140,6 +141,7 @@ COPY config/identities.yaml /identities.yaml
 COPY config/menu.yaml /menu.yaml
 COPY config/aliases.json /aliases.json
 COPY config/dashboard_overview.json /dashboard_overview.json
+COPY config/logrotate /etc/logrotate.d/metrics
 
 COPY bin/entrypoint.sh /entrypoint.sh
 RUN sudo chmod 755 /entrypoint.sh

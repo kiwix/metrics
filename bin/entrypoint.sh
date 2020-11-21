@@ -18,6 +18,10 @@ chown -R elasticsearch.elasticsearch /var/lib/elasticsearch
 echo "Starting MariaDB"
 /etc/init.d/mysql start
 
+# Start Cron
+echo "Starting Cron"
+/etc/init.d/cron start
+
 echo -n "Waiting for Elasticsearch  to start..."
 until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:9200); do
     printf '.'
@@ -38,7 +42,7 @@ fi
 
 # Start Kibana
 echo "Starting Kibiter"
-${KB_DIR}/bin/kibana > kibana.log 2>&1 &
+${KB_DIR}/bin/kibana > /var/log/kibana.log 2>&1 &
 
 echo -n "Waiting for Kibiter to start..."
 until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:5601); do
@@ -58,6 +62,8 @@ kidash --import /dashboard_overview.json --dashboard Overview
 # Put Index kibana setting in read only
 curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : true }'
 
+
+
 if [[ $RUN_MORDRED ]] && [[ $RUN_MORDRED = "NO" ]]; then
   echo
   echo "All services up, not running SirMordred because RUN_MORDRED = NO"
@@ -68,7 +74,7 @@ else
   # Start SirMordred
   echo "Starting SirMordred to build a GrimoireLab dashboard"
   echo "This will usually take a while..."
-  /usr/local/bin/sirmordred $* 2>&1 | tee -a sirmordred.log
+  /usr/local/bin/sirmordred $* 2>&1 | tee -a /var/log/sirmordred.log
   status=$?
   if [ $status -ne 0 ]; then
     echo "Failed to start SirMordred: $status"
