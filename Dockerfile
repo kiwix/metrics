@@ -106,6 +106,7 @@ RUN ${GET} https://github.com/grimoirelab/kibiter/releases/download/${KB_TAG}/${
     tar xzf ${KB_DIR}.tar.gz && \
     rm ${KB_DIR}.tar.gz && \
     sed -e "s|^#server.host: .*$|server.host: 0.0.0.0|" -i ${KB_DIR}/config/kibana.yml && \
+    sed -e "s/\'devTools\'\,//g"  -i ${KB_DIR}/src/core_plugins/kibana/index.js && \
     rm -rf ${KB_DIR}/src/ui/public/images ${KB_DIR}/src/ui/public/assets/favicons
 
 COPY images ${KB_DIR}/src/ui/public/images
@@ -118,17 +119,6 @@ RUN ${KB_DIR}/bin/kibana 2>&1 | grep -m 1 "Optimization of .* complete in .* sec
 EXPOSE 5601
 
 USER root
-
-RUN sudo /etc/init.d/elasticsearch start && \
-    ${KB_DIR}/bin/kibana 2>&1 > /dev/null & \
-    ( until $(curl --output /dev/null --silent --fail http://127.0.0.1:9200/.kibana/config/_search ); do \
-        printf '.' && \
-        sleep 2 && \
-        curl -XPOST "http://127.0.0.1:5601/api/kibana/settings/indexPattern:placeholder" \
-          -H 'Content-Type: application/json' -H 'kbn-version: '${KB_VERSION} \
-          -H 'Accept: application/json' -d '{"value": "*"}' \
-          --silent --output /dev/null ; \
-    done )
 
 # Add default mordred configuration files
 COPY config/mordred-infra.cfg /infra.cfg

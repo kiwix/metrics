@@ -31,9 +31,6 @@ done
 # Allow kibana setting writting for initialization
 curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : false }'
 
-# Disable dev tool
-sed -e s/\'devTools\'\,//g  -i ${KB_DIR}/src/core_plugins/kibana/index.js
-
 if [ "$PROJECT_NAME" != "" ]; then
   sed -e "s/title: 'Kibana',$/title: '$PROJECT_NAME',/" -i ${KB_DIR}/src/core_plugins/kibana/index.js
   sed -e "s|__PROJECT__|$PROJECT_NAME|g" -i ${KB_DIR}/src/ui/views/chrome.jade
@@ -52,8 +49,9 @@ done
 
 echo ""
 echo "Settings Kibana"
-curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/histogram:barTarget -d '{"value": "20"}'
-curl -XPOST -H "Content-Type: application/json" -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/defaultIndex -d '{"value":"26d36150-0f7c-11ea-ae8c-d9e77f11fa16"}'
+curl -XPOST -H "Content-Type: application/json" -H 'Accept: application/json' -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/indexPattern:placeholder -d '{"value": "*"}'
+curl -XPOST -H "Content-Type: application/json" -H 'Accept: application/json' -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/histogram:barTarget -d '{"value": "20"}'
+curl -XPOST -H "Content-Type: application/json" -H 'Accept: application/json' -H "kbn-xsrf: true" localhost:5601/api/kibana/settings/defaultIndex -d '{"value":"26d36150-0f7c-11ea-ae8c-d9e77f11fa16"}'
 
 echo ""
 echo "Import dashboard"
@@ -61,8 +59,6 @@ kidash --import /dashboard_overview.json --dashboard Overview
 
 # Put Index kibana setting in read only
 curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : true }'
-
-
 
 if [[ $RUN_MORDRED ]] && [[ $RUN_MORDRED = "NO" ]]; then
   echo
