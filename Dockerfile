@@ -106,8 +106,10 @@ RUN ${GET} https://github.com/grimoirelab/kibiter/releases/download/${KB_TAG}/${
     tar xzf ${KB_DIR}.tar.gz && \
     rm ${KB_DIR}.tar.gz && \
     sed -e "s|^#server.host: .*$|server.host: 0.0.0.0|" -i ${KB_DIR}/config/kibana.yml && \
-    sed -e "s/\'devTools\'\,//g"  -i ${KB_DIR}/src/core_plugins/kibana/index.js && \
     rm -rf ${KB_DIR}/src/ui/public/images ${KB_DIR}/src/ui/public/assets/favicons
+
+# Unauthorize devTools access
+RUN sed -e "s/ 'devTools',//g"  -i ${KB_DIR}/src/core_plugins/kibana/index.js
 
 COPY images ${KB_DIR}/src/ui/public/images
 COPY favicons ${KB_DIR}/src/ui/public/assets/favicons
