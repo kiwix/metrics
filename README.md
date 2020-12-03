@@ -53,7 +53,7 @@ The dashboard show in first. To change this dashboard, fisrt turn off read-only 
 
 Change the dashboard with [user interface](https://metrics.kiwix.org/app/kibana#/dashboard/Overview?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-1y,mode:quick,to:now))&_a=(viewMode:edit)) Don't forget to save.
 
-Turn on read-on mode :
+Turn on read-only mode :
 
 `curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : true }'`
 
