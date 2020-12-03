@@ -47,9 +47,21 @@ Configure the menu for Kibiter
 
 ### dashboard_overview.json
 
-The dashboard show in first. This file is generate with Kidash :
+The dashboard show in first. To change this dashboard, fisrt turn off read-only mode :
+
+`curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : false }'`
+
+Change the dashboard with [user interface](https://metrics.kiwix.org/app/kibana#/dashboard/Overview?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-1y,mode:quick,to:now))&_a=(viewMode:edit)) Don't forget to save.
+
+Turn on read-on mode :
+
+`curl -X PUT "http://localhost:9200/.kibana/_settings" -H'Content-Type: application/json' -d '{ "index.blocks.read_only" : true }'`
+
+Generate `dashboard_overview.json` with Kidash :
 
 `kidash --export dashboard_overview.json --dashboard Overview`
+
+Finaly, replace `config/dashboard_overview.json` by the new exported file.
 
 ## Performances
 
