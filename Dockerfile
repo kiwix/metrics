@@ -5,7 +5,7 @@
 # for running mordred by default
 #
 
-FROM debian:stretch-slim
+FROM debian:buster-slim
 MAINTAINER Kiwix <contact@kiwix.org>
 
 ENV DEBIAN_FRONTEND=noninteractive
