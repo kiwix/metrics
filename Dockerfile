@@ -38,7 +38,7 @@ RUN mkdir /usr/share/man/man1 && \
         python3-gdbm \
         mariadb-client \
         unzip curl wget sudo ssh \
-        openjdk-8-jdk-headless \
+        openjdk-11-jdk-headless \
         net-tools \
         mariadb-server cloc \
         logrotate cron \
