@@ -2,6 +2,7 @@
   "kiwix": {
     "git": [
       "https://github.com/kiwix/apple",
+      "https://github.com/kiwix/borg-backup",
       "https://github.com/kiwix/cardshop",
       "https://github.com/kiwix/kiwix-android",
       "https://github.com/kiwix/kiwix-android-custom",
@@ -20,6 +21,7 @@
     ],
     "github": [
       "https://github.com/kiwix/apple",
+      "https://github.com/kiwix/borg-backup",
       "https://github.com/kiwix/cardshop",
       "https://github.com/kiwix/kiwix-android",
       "https://github.com/kiwix/kiwix-android-custom",
@@ -38,6 +40,7 @@
     ],
     "cocom": [
       "https://github.com/kiwix/apple",
+      "https://github.com/kiwix/borg-backup",
       "https://github.com/kiwix/cardshop",
       "https://github.com/kiwix/kiwix-android",
       "https://github.com/kiwix/kiwix-android-custom",
@@ -57,10 +60,11 @@
   },
   "openzim": {
     "git": [
+      "https://github.com/openzim/docker-publish-action",
       "https://github.com/openzim/education-numerique",
       "https://github.com/openzim/gutenberg",
-      "https://github.com/openzim/kalite",
-      "https://github.com/openzim/libretexts",
+      "https://github.com/openzim/kolibri2zim",
+      "https://github.com/openzim/libretexts-sushi-chef",
       "https://github.com/openzim/libzim",
       "https://github.com/openzim/mediawiki-docker",
       "https://github.com/openzim/mwoffliner",
@@ -73,21 +77,22 @@
       "https://github.com/openzim/ted",
       "https://github.com/openzim/warc2zim",
       "https://github.com/openzim/wikifundi",
-      "https://github.com/openzim/wikihow",
       "https://github.com/openzim/wp1",
       "https://github.com/openzim/wp1_selection_tools",
       "https://github.com/openzim/youtube",
       "https://github.com/openzim/zim-requests",
       "https://github.com/openzim/zim-tools",
       "https://github.com/openzim/zimfarm",
+      "https://github.com/openzim/zimit-frontend",
       "https://github.com/openzim/zimit",
       "https://github.com/openzim/zip2zim"
     ],
     "github": [
+      "https://github.com/openzim/docker-publish-action",
       "https://github.com/openzim/education-numerique",
       "https://github.com/openzim/gutenberg",
-      "https://github.com/openzim/kalite",
-      "https://github.com/openzim/libretexts",
+      "https://github.com/openzim/kolibri2zim",
+      "https://github.com/openzim/libretexts-sushi-chef",
       "https://github.com/openzim/libzim",
       "https://github.com/openzim/mediawiki-docker",
       "https://github.com/openzim/mwoffliner",
@@ -100,7 +105,6 @@
       "https://github.com/openzim/ted",
       "https://github.com/openzim/warc2zim",
       "https://github.com/openzim/wikifundi",
-      "https://github.com/openzim/wikihow",
       "https://github.com/openzim/wp1",
       "https://github.com/openzim/wp1_selection_tools",
       "https://github.com/openzim/youtube",
@@ -108,13 +112,15 @@
       "https://github.com/openzim/zim-tools",
       "https://github.com/openzim/zimfarm",
       "https://github.com/openzim/zimit",
+      "https://github.com/openzim/zimit-frontend",
       "https://github.com/openzim/zip2zim"
     ],
     "cocom": [
+      "https://github.com/openzim/docker-publish-action",
       "https://github.com/openzim/education-numerique",
       "https://github.com/openzim/gutenberg",
-      "https://github.com/openzim/kalite",
-      "https://github.com/openzim/libretexts",
+      "https://github.com/openzim/kolibri2zim",
+      "https://github.com/openzim/libretexts-sushi-chef",
       "https://github.com/openzim/libzim",
       "https://github.com/openzim/mediawiki-docker",
       "https://github.com/openzim/mwoffliner",
@@ -127,7 +133,6 @@
       "https://github.com/openzim/ted",
       "https://github.com/openzim/warc2zim",
       "https://github.com/openzim/wikifundi",
-      "https://github.com/openzim/wikihow",
       "https://github.com/openzim/wp1",
       "https://github.com/openzim/wp1_selection_tools",
       "https://github.com/openzim/youtube",
@@ -135,6 +140,7 @@
       "https://github.com/openzim/zim-tools",
       "https://github.com/openzim/zimfarm",
       "https://github.com/openzim/zimit",
+      "https://github.com/openzim/zimit-frontend",
       "https://github.com/openzim/zip2zim"
     ]
   }
