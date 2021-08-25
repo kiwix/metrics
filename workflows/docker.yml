@@ -17,12 +17,10 @@ jobs:
         uses: openzim/docker-publish-action@v5
         with:
           registries: ghcr.io
-          image-path: kiwix/metrics
+          image-name: kiwix/metrics
           on-master: latest
           tag-pattern: /^v([0-9.]+)$/
-          latest-on-tag: false
           restrict-to: kiwix/metrics
-          hub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-          hub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          ghcr-username: ${{ secrets.GHCR_USERNAME }}
-          ghcr-token: ${{ secrets.GHCR_TOKEN }}
+          credentials:
+            GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
+            GHCRIO_TOKEN=${{ secrets.GHCR_TOKEN }}
