@@ -24,8 +24,7 @@ ENV GITHUB_TOKEN=xxx
 ENV GET="wget -q"
 
 # install dependencies
-RUN mkdir /usr/share/man/man1 && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get -y install --no-install-recommends \
         bash locales \
         gcc \
