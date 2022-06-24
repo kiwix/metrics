@@ -22,6 +22,7 @@ ENV KB=kibiter-${KB_VERSION}
 ENV KB_DIR=${KB}-linux-x86_64
 ENV GITHUB_TOKEN=xxx
 ENV GET="wget -q"
+ENV TRUNCATE_LOGS ""
 
 # install dependencies
 RUN apt-get update && \
@@ -134,6 +135,7 @@ COPY config/aliases.json /aliases.json
 COPY config/dashboard_overview.json /dashboard_overview.json
 COPY config/logrotate /etc/logrotate.d/metrics
 
+COPY bin/truncate-logs.sh /etc/cron.hourly/truncate-logs
 COPY bin/entrypoint.sh /entrypoint.sh
 RUN sudo chmod 755 /entrypoint.sh
 

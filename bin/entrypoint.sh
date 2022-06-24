@@ -18,6 +18,11 @@ chown -R elasticsearch.elasticsearch /var/lib/elasticsearch
 echo "Starting MariaDB"
 /etc/init.d/mysql start
 
+# Enable logs truncating
+if [ ! -z "$TRUNCATE_LOGS" ]; then
+    chmod +x /etc/cron.hourly/truncate-logs
+fi
+
 # Start Cron
 echo "Starting Cron"
 /etc/init.d/cron start

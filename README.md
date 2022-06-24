@@ -88,3 +88,5 @@ Finaly, replace `config/dashboard_overview.json` by the new exported file.
 - Initialization time : ~ 9 hours (cocom)
 - Incremental update time : ~ 2 minutes (cocom)
 - Elastic Search database size : ~ 8 Go
+
+⚠️ A verbose log file at `/logs/all.log` grows indefinitely without a clear setting to control it. You may want to use `TRUNCATE_LOGS=y` environment variable to enable an hourly reset of all log files.
